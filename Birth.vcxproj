@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6C101F2F-6D93-37DB-A457-8B098BE60993}</ProjectGuid>
+    <RootNamespace>Birth</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Birth</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Birth</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>global.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>global.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\Birth.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>GLEW_STATIC;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;_DEBUG;USING_PCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\debug\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-sd.lib;glu32.lib;opengl32.lib;libboost_filesystem-vc100-mt-sgd-1_48.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>debug\Birth.exe</OutputFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_48_0\stage\lib</AdditionalLibraryDirectories>
+    </Link>
+    <Midl />
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;_DEBUG;USING_PCH;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>global.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>global.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\Birth.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>GLEW_STATIC;QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;_DEBUG;USING_PCH;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\release\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-s.lib;glu32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>release\Birth.exe</OutputFile>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_48_0\stage\lib</AdditionalLibraryDirectories>
+    </Link>
+    <Midl />
+    <ResourceCompile>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;_DEBUG;USING_PCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Angle2d.cpp" />
+    <ClCompile Include="ASyncResourceManager.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Error.cpp" />
+    <ClCompile Include="FileFactory.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="gamePlayer.cpp" />
+    <ClCompile Include="GameSequence.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="oglPerspectiveCamera.cpp" />
+    <ClCompile Include="oglFramebuffer.cpp" />
+    <ClCompile Include="IFileReader.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ObjMeshLoader.cpp" />
+    <ClCompile Include="oglProgram.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="oglShader.cpp" />
+    <ClCompile Include="SyncResourceManager.cpp" />
+    <ClCompile Include="oglTexture.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TgaTextureLoader.cpp" />
+    <ClCompile Include="TitleSequence.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Angle2d.h" />
+    <ClInclude Include="ASyncResourceManager.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="gameNode.h" />
+    <ClInclude Include="gamePlayer.h" />
+    <ClInclude Include="GameSequence.h" />
+    <ClInclude Include="GetterSetter.h" />
+    <ClInclude Include="guiBackground.h" />
+    <ClInclude Include="guiElement.h" />
+    <ClInclude Include="ITextureLoader.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="oglPerspectiveCamera.h" />
+    <ClInclude Include="oglCompileError.h" />
+    <ClInclude Include="Error.h" />
+    <ClInclude Include="FileFactory.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="oglFramebuffer.h" />
+    <ClInclude Include="IFileFactory.h" />
+    <ClInclude Include="IFileReader.h" />
+    <ClInclude Include="IMeshLoader.h" />
+    <ClInclude Include="IResourceManager.h" />
+    <ClInclude Include="oglLinkError.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="oglMeshbuffer.h" />
+    <ClInclude Include="ObjMeshLoader.h" />
+    <ClInclude Include="oglProgram.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sequence.h" />
+    <ClInclude Include="oglShader.h" />
+    <ClInclude Include="SyncResourceManager.h" />
+    <ClInclude Include="oglTexture.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TgaTextureLoader.h" />
+    <ClInclude Include="TitleSequence.h" />
+    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector3d.h" />
+    <ClInclude Include="Vertex3d.h" />
+    <ClInclude Include="core.h" />
+    <CustomBuild Include="global.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo /*-------------------------------------------------------------------- &gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "global.h"&gt;&gt;global.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating precompiled header source file 'global.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">global.h.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo /*-------------------------------------------------------------------- &gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;global.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "global.h"&gt;&gt;global.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating precompiled header source file 'global.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">global.h.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="global.h.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(INHERIT)</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(INHERIT)</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
