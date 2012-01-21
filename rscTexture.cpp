@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "rscTexture.h"
 
 #include "TgaTextureLoader.h"
 
@@ -8,8 +8,8 @@ using namespace textureloader;
 Texture::Texture()
 	: _repeatX(true),
 	_repeatY(true),
-	_magFilter(EFilter::EF_NEAREST),
-	_minFilter(EFilter::EF_NEAREST)
+	_magFilter(ogl::Texture::EF_NEAREST),
+	_minFilter(ogl::Texture::EF_NEAREST)
 {
 }
 

@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "rscMesh.h"
 #include "IFileReader.h"
 #include "ObjMeshLoader.h"
 

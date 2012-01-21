@@ -8,6 +8,9 @@
 
 #include "Error.h"
 #include "Application.h"
+#include "inputManager.h"
+
+#include "Matrix4d.h"
 
 #include <functional>
 
@@ -104,6 +107,7 @@ int main(int argc, const char** argv)
 		newTime = prevTime = glfwGetTime();
 		while (true) {
 			newTime = glfwGetTime();
+			input::Manager::instance()->update(f32(newTime - prevTime));
 			app.update(f32(newTime - prevTime));
 			prevTime = newTime;
 			glfwSwapBuffers();

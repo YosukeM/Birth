@@ -1,13 +1,13 @@
 #pragma once
 
 #include "gameNode.h"
-#include "Material.h"
-#include "Mesh.h"
+#include "oglMaterial.h"
+#include "rscMesh.h"
 #include "oglProgram.h"
 #include "Angle2d.h"
 
 namespace rsc {
-	class IResourceManager;
+	class IManager;
 }
 
 namespace game {
@@ -36,13 +36,16 @@ namespace game {
 
 		TailGeom _tail;
 		Angle2d _theta;
-		float3d _position;
+		float2d _pointer;
+
+		void _drawSolid();
+
 	public:
-		Player(core::shared_ptr<rsc::IResourceManager>);
+		Player(core::shared_ptr<rsc::IManager>);
 
 		float3d getPosition() const;
 
 		void update(float);
-		void render();
+		void draw(Node::EDrawState);
 	};
 }

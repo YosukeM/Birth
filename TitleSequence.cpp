@@ -1,7 +1,8 @@
 #include "TitleSequence.h"
+#include "rscSyncManager.h"
 
 TitleSequence::TitleSequence() {
-	_rm = core::make_shared<rsc::SyncResourceManager>();
+	_rm = core::make_shared<rsc::SyncManager>();
 }
 
 TitleSequence::~TitleSequence() {

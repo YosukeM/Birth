@@ -1,4 +1,4 @@
-#include "Material.h"
+#include "oglMaterial.h"
 #include "GL/glfw.h"
 
 using namespace ogl;
@@ -43,7 +43,7 @@ void Material::bind() {
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, dif);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emis);
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, _shiness *128.0);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, _shiness * 128.0f);
 }
 
 void Material::unbind() {

@@ -22,6 +22,6 @@ namespace ogl {
 		void setLookAt(const float3d&);
 		float3d getLookAt() const;
 
-		void setProjectionMatrix();
+		void setMatrix();
 	};
 }

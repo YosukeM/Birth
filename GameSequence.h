@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Sequence.h"
-#include "SyncResourceManager.h"
+#include "rscSyncManager.h"
 
-#include "Material.h"
-#include "Light.h"
+#include "oglMaterial.h"
+#include "oglLight.h"
 #include "oglPerspectiveCamera.h"
 
 #include "oglFramebuffer.h"
@@ -19,7 +19,7 @@ namespace game {
 }
 
 class GameSequence : public Sequence {
-	core::shared_ptr<rsc::SyncResourceManager> _rm;
+	core::shared_ptr<rsc::SyncManager> _rm;
 	ogl::Light _light;
 	ogl::PerspectiveCamera _camera;
 	float3d _cameraPosition;

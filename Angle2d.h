@@ -12,6 +12,10 @@ class Angle2d : private
 
 public:
 	static const float PI;
+	static Angle2d acos(float);
+	static Angle2d asin(float);
+	static Angle2d atan(float);
+	static Angle2d atan2(float y, float x);
 
 	Angle2d(float v = 0.0f);
 	Angle2d(const float2d& v);

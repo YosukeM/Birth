@@ -161,7 +161,7 @@ void Texture::draw() {
 
 float2d Texture::getRBTexCoord() const {
 	if (_isRect) {
-		return float2d(getSize().x, getSize().y);
+		return float2d(f32(getSize().x), f32(getSize().y));
 	} else {
 		u32 size = sizeOfNotRect(getSize());
 		return float2d(float(size), float(size));

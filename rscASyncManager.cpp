@@ -1,8 +1,8 @@
-#include "AsyncResourceManager.h"
+#include "rscAsyncManager.h"
 #include "FileFactory.h"
 
-#include "Resource.h"
-#include "Mesh.h"
+#include "rscResource.h"
+#include "rscMesh.h"
 
 using namespace rsc;
 /*

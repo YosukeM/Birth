@@ -21,14 +21,16 @@ GETSET_LP(float, Near, _near)
 GETSET_LP(float, Far, _far)
 GETSET_LP(float, Fov, _fov)
 
-void PerspectiveCamera::setProjectionMatrix() {
+void PerspectiveCamera::setMatrix() {
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
 	gluPerspective(_fov / 3.1415926535897932 * 180.0, double(viewport[2]) / double(viewport[3]), _near, _far);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	gluLookAt(
 		_position.x, _position.y, _position.z,
 		_lookAt.x, _lookAt.y, _lookAt.z,

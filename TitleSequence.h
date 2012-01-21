@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Sequence.h"
-#include "SyncResourceManager.h"
 
 namespace rsc {
-	class SyncResourceManager;
+	class SyncManager;
 }
 
 namespace gui {
@@ -13,7 +12,7 @@ namespace gui {
 }
 
 class TitleSequence : public Sequence {
-	core::shared_ptr<rsc::SyncResourceManager> _rm;
+	core::shared_ptr<rsc::SyncManager> _rm;
 
 	core::shared_ptr<gui::BackgroundImage> _bg;
 	core::vector<core::shared_ptr<gui::Button>> _buttons;

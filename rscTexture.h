@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Resource.h"
+#include "rscResource.h"
 #include "oglTexture.h"
 
 namespace rsc {

@@ -1,6 +1,6 @@
 #include "GameSequence.h"
 
-#include "SyncResourceManager.h"
+#include "rscSyncManager.h"
 #include "gamePlayer.h"
 #include <GL/glfw.h>
 
@@ -8,7 +8,7 @@
 
 GameSequence::GameSequence()
 	: _light(true),
-	  _rm(core::make_shared<rsc::SyncResourceManager>()),
+	  _rm(core::make_shared<rsc::SyncManager>()),
 	  _player(core::make_shared<game::Player>(_rm))
 {
 	_light.setAmbientColor(Color(0xFFFFFFFF));
@@ -94,18 +94,17 @@ void GameSequence::_draw() {
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
 	_framebuffer.bind();
+	glViewport(0, 0, viewport[2], viewport[3]);
 
 	// 基本的な3Dオブジェクトの描画
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, viewport[2], viewport[3]);
 
 		_camera.setPosition(_cameraPosition);
-		_camera.setProjectionMatrix();
+		_camera.setMatrix();
 
 		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 
 		_light.setPosition(_cameraPosition);
 		_light.setSpotDirection(float3d() - _cameraPosition);
@@ -114,7 +113,7 @@ void GameSequence::_draw() {
 		glEnable(GL_LIGHT0);
 		_light.attach(GL_LIGHT0);
 
-		_player->render();
+		_player->draw(game::Node::EDS_SOLID);
 
 		glDisable(GL_LIGHT0);
 		glDisable(GL_DEPTH_TEST);
@@ -153,11 +152,11 @@ void GameSequence::_draw() {
 
 		_blurProgram.use();
 		glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-		_blurProgram.setUniform("textureSize", float2d(_blurBuffer->getSize().x, _blurBuffer->getSize().y));
+		_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer->getSize().x), f32(_blurBuffer->getSize().y)));
 		_blurBuffer->draw();
 
 		glColor4f(1.0f, 1.0f, 1.0f, 0.2f);
-		_blurProgram.setUniform("textureSize", float2d(_blurBuffer2->getSize().x, _blurBuffer2->getSize().y));
+		_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer2->getSize().x), f32(_blurBuffer2->getSize().y)));
 		_blurBuffer2->draw();
 		_blurProgram.unuse();
 

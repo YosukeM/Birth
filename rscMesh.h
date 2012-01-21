@@ -1,7 +1,7 @@
 #pragma once
 
 #include "oglMeshbuffer.h"
-#include "Resource.h"
+#include "rscResource.h"
 
 namespace rsc {
 class Mesh : public Resource

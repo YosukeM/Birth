@@ -1,6 +1,6 @@
 #include "Application.h"
 
-#include "Mesh.h"
+#include "rscMesh.h"
 #include "oglMeshbuffer.h"
 
 #include "Error.h"

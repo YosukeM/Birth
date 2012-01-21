@@ -1,4 +1,4 @@
-#include "Light.h"
+#include "oglLight.h"
 #include "GL/glfw.h"
 
 #include "GetterSetter.h"

@@ -1,4 +1,4 @@
-#include "Resource.h"
+#include "rscResource.h"
 #include "Error.h"
 
 using namespace rsc;

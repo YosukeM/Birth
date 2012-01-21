@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IResourceManager.h"
+#include "rscIManager.h"
 #include "IFileFactory.h"
 
 namespace rsc {
-class SyncResourceManager : public IResourceManager
+class SyncManager : public IManager
 {
 	typedef core::unordered_map<core::string, core::shared_ptr<Mesh> > MeshMapType;
 	MeshMapType _meshMap;
@@ -12,7 +12,7 @@ class SyncResourceManager : public IResourceManager
 	TexMapType _texMap;
 	core::scoped_ptr<fs::IFileFactory> _fileFactory;
 public:
-	SyncResourceManager();
+	SyncManager();
 
 	core::shared_ptr<Mesh> getMesh(const core::string& id);
 	core::shared_ptr<Texture> getTexture(const core::string& id);

@@ -76,7 +76,7 @@ public:
 	}
 
 	Vector2d<T> getNormalized() const {
-		Vector2d<T> n = this;
+		Vector2d<T> n = *this;
 		n.normalize();
 		return n;
 	}

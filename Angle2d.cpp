@@ -4,6 +4,22 @@
 
 const float Angle2d::PI(3.1415926535897932f);
 
+Angle2d Angle2d::acos(float v) {
+	return Angle2d(std::acos(v));
+}
+
+Angle2d Angle2d::asin(float v) {
+	return Angle2d(std::asin(v));
+}
+
+Angle2d Angle2d::atan(float v) {
+	return Angle2d(std::atan(v));
+}
+
+Angle2d Angle2d::atan2(float y, float x) {
+	return Angle2d(std::atan2(y, x));
+}
+
 void Angle2d::_normalize() {
 	while (_v <= -PI) {
 		_v += PI * 2.0f;
@@ -71,7 +87,12 @@ float Angle2d::tan() const {
 }
 
 float2d Angle2d::getVector() const {
-	return float2d(cos(), sin());
+	f32 cosine = cos();
+	if (_v >= 0.0f) {
+		return float2d(cosine, std::sqrt(1.0f - pow(cosine, 2)));
+	} else {
+		return float2d(cosine, - std::sqrt(1.0f - pow(cosine, 2)));
+	}
 }
 
 float Angle2d::degree() const {

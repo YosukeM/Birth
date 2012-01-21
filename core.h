@@ -36,6 +36,7 @@ namespace core {
 	using std::array;
 
 	using std::tuple;
+	using std::get;
 	using boost::variant;
 
 	using std::function;

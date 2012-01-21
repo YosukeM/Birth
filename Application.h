@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SyncResourceManager.h"
+#include "rscSyncManager.h"
 
 class Sequence;
 

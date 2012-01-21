@@ -1,16 +1,16 @@
-#include "SyncResourceManager.h"
+#include "rscSyncManager.h"
 #include "FileFactory.h"
-#include "Mesh.h"
-#include "Texture.h"
+#include "rscMesh.h"
+#include "rscTexture.h"
 
 using namespace rsc;
 
-SyncResourceManager::SyncResourceManager()
+SyncManager::SyncManager()
 {
 	_fileFactory.reset(new fs::FileFactory());
 }
 
-core::shared_ptr<Mesh> SyncResourceManager::getMesh(const core::string& id) {
+core::shared_ptr<Mesh> SyncManager::getMesh(const core::string& id) {
 	MeshMapType::iterator itr = _meshMap.find(id);
 	if (itr == _meshMap.end()) {
 		core::shared_ptr<Mesh> mesh = core::make_shared<Mesh>();
@@ -22,6 +22,6 @@ core::shared_ptr<Mesh> SyncResourceManager::getMesh(const core::string& id) {
 	}
 }
 
-core::shared_ptr<Texture> SyncResourceManager::getTexture(const core::string& id) {
+core::shared_ptr<Texture> SyncManager::getTexture(const core::string& id) {
 	return core::shared_ptr<Texture>();
 }

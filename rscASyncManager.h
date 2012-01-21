@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IResourceManager.h"
+#include "rscIManager.h"
 
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
@@ -14,7 +14,7 @@ namespace fs {
 namespace rsc {
 	class Resource;
 
-	class ASyncResourceManager : public IResourceManager {
+	class ASyncManager : public IManager {
 		typedef core::unordered_map<core::string, core::shared_ptr<Mesh> > meshset_type;
 		meshset_type _meshSet;
 
@@ -32,8 +32,8 @@ namespace rsc {
 
 		boost::optional<Error> error;
 	public:
-		ASyncResourceManager();
-		~ASyncResourceManager();
+		ASyncManager();
+		~ASyncManager();
 
 		void _threadFunc();
 
