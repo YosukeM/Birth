@@ -10,11 +10,13 @@ class Sequence {
 private:
 	f32 _fadeTimer, _fadeDuration;
 	Color _fadeColor;
+protected:
 	typedef enum {
 		EFS_NONE,
 		EFS_FADEIN,
 		EFS_FADEOUT
 	} EFadeState;
+private:
 	EFadeState _fadeState;
 
 	void _drawFading(f32);
@@ -25,12 +27,12 @@ protected:
 	// フェードインを開始する。
 	// \param duration フェードインが完了するまでの時間
 	// \param from 開始時のフェードインの色
-	void _fadein(f32 duration = 1.0f, const Color& from = 0x000000FF);
+	void _fadein(f32 duration = 1.0f, const Color& from = Color(0x000000FF));
 
 	// フェードアウトを開始し、シーケンスを終了させる
 	// \param duration フェードアウトが完了するまでの時間
 	// \param to 終了時の画面の色
-	void _fadeout(f32 duration = 1.0f, const Color& to = 0x000000FF);
+	void _fadeout(f32 duration = 1.0f, const Color& to = Color(0x000000FF));
 
 	// 今どのようにフェードしているか取得する。
 	// \return EFS_NONE | EFS_FADEIN | EFS_FADEOUT

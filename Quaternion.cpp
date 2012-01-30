@@ -122,7 +122,7 @@ Quaternion Quaternion::slerp(const Quaternion& a, const Quaternion& b_, f32 t) {
 		cos_omega = - cos_omega;
 	}
 
-	assert(cos_omega < 1.1f);
+	// assert(cos_omega < 1.1f);
 
 	float k0, k1;
 	if (cos_omega > 0.999f) {
@@ -144,4 +144,9 @@ Quaternion Quaternion::slerp(const Quaternion& a, const Quaternion& b_, f32 t) {
 	b.z = k0 * a.z + k1 * b.z;
 
 	return b;
+}
+
+float3d Quaternion::getRotated(const float3d& v) {
+	Quaternion out = (*this) * Quaternion(0.0f, v.x, v.y, v.z);
+	return float3d(out.x, out.y, out.z);
 }

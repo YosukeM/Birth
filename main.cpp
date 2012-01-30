@@ -1,18 +1,17 @@
 #ifdef _WIN32
 #include <Windows.h>
+#else
+#include <boost/filesystem/operations.hpp>
 #endif
 
 #include <GL/glew.h>
 #include <GL/glfw.h>
-#include <iostream>
 
 #include "Error.h"
 #include "Application.h"
 #include "inputManager.h"
 
-#include "Matrix4d.h"
-
-#include <functional>
+#include <gameaudio/gameaudio.h>
 
 namespace {
 
@@ -91,9 +90,16 @@ int main(int argc, const char** argv)
 		return -1;
 	}
 
+	// GameAudioを初期化
+	gameaudio::getSoundManager();
+
 	// GLFWの設定
 	glfwSetWindowTitle("Birth");
 	glfwSetWindowSizeCallback(onResize);
+
+#ifndef _WIN32
+	boost::filesystem::current_path("../../../../Birth");
+#endif
 
 	try {
 		// Applicationのコンストラクタを呼ぶ

@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;C:\Users\yosuke\Projects\GameAudio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -73,7 +73,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\debug\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-sd.lib;glu32.lib;opengl32.lib;libboost_filesystem-vc100-mt-sgd-1_48.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\debug\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-sd.lib;glu32.lib;opengl32.lib;libboost_filesystem-vc100-mt-sgd-1_48.lib;C:\Users\yosuke\Projects\GameAudio\bin\win32\Debug\GameAudio.lib;C:\lib\OpenAL 1.1 SDK\libs\Win32\OpenAL32.lib;C:\lib\libogg-1.3.0\win32\VS2010\Win32\Debug\libogg_static.lib;C:\lib\libvorbis-1.3.2\win32\VS2010\Win32\Debug\libvorbis_static.lib;C:\lib\libvorbis-1.3.2\win32\VS2010\Win32\Debug\libvorbisfile_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>debug\Birth.exe</OutputFile>
@@ -88,7 +88,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_48_0;C:\lib\glew-1.7.0\include;C:\lib\glfw-2.7.2.bin.WIN32\include;..\..\..\..\lib\QtSDK\Desktop\Qt\4.7.4\mingw\mkspecs\win32-msvc2010;C:\Users\yosuke\Projects\GameAudio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -110,7 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\release\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-s.lib;glu32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\lib\glfw-2.7.2.bin.WIN32\lib-msvc100\release\GLFWMT.lib;C:\lib\glew-1.7.0\lib\glew32-mt-s.lib;glu32.lib;opengl32.lib;C:\Users\yosuke\Projects\GameAudio\bin\win32\Release\GameAudio.lib;C:\lib\OpenAL 1.1 SDK\libs\Win32\OpenAL32.lib;C:\lib\libogg-1.3.0\win32\VS2010\Win32\Release\libogg_static.lib;C:\lib\libvorbis-1.3.2\win32\VS2010\Win32\Release\libvorbis_static.lib;C:\lib\libvorbis-1.3.2\win32\VS2010\Win32\Release\libvorbisfile_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <LinkIncremental>false</LinkIncremental>
@@ -126,7 +126,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Angle2d.cpp" />
+    <ClCompile Include="gameGeomTail.cpp" />
     <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="gameScene.cpp" />
+    <ClCompile Include="gameSubordinate.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="rscASyncManager.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -147,7 +150,9 @@
     <ClCompile Include="rscMesh.cpp" />
     <ClCompile Include="ObjMeshLoader.cpp" />
     <ClCompile Include="oglProgram.cpp" />
+    <ClCompile Include="rscProgram.cpp" />
     <ClCompile Include="rscResource.cpp" />
+    <ClCompile Include="rscShader.cpp" />
     <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="oglShader.cpp" />
     <ClCompile Include="rscSyncManager.cpp" />
@@ -159,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle2d.h" />
+    <ClInclude Include="gameGeomTail.h" />
+    <ClInclude Include="gameScene.h" />
+    <ClInclude Include="gameSubordinate.h" />
     <ClInclude Include="rscASyncManager.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -190,7 +198,9 @@
     <ClInclude Include="ObjMeshLoader.h" />
     <ClInclude Include="oglProgram.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="rscProgram.h" />
     <ClInclude Include="rscResource.h" />
+    <ClInclude Include="rscShader.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="oglShader.h" />
     <ClInclude Include="rscSyncManager.h" />

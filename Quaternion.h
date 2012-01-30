@@ -8,7 +8,7 @@ public:
 
 	Quaternion();
 	Quaternion(float w, float x, float y, float z);
-	Quaternion(const float3d& euler);
+	explicit Quaternion(const float3d& euler);
 	Quaternion(const Angle2d& rad, const float3d& axis);
 
 	f32 dotProduct(const Quaternion&) const;
@@ -25,4 +25,6 @@ public:
 	void normalize();
 
 	static Quaternion slerp(const Quaternion& a, const Quaternion& b, f32 blend);
+
+	float3d getRotated(const float3d&);
 };

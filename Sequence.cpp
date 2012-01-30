@@ -1,6 +1,10 @@
 #include "Sequence.h"
 #include <GL/glfw.h>
-#include <GL/GLU.h>
+#ifdef _WIN32
+	#include <GL/GLU.h>
+#else
+	#include <OpenGL/glu.h>
+#endif
 
 Sequence::Sequence()
 	: _fadeTimer(0.0f),
@@ -44,9 +48,11 @@ void Sequence::_drawFading(f32 fade_level) {
 		fade_level = 1.0f;
 	}
 
-	glEnable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_LIGHTING);
+	glBlendFunc(GL_ZERO, GL_SRC_COLOR);
+	glEnable(GL_BLEND);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -57,7 +63,12 @@ void Sequence::_drawFading(f32 fade_level) {
 
 	f32 color[4];
 	_fadeColor.getAs4Values(color);
-	glColor4f(color[0], color[1], color[2], color[3] * fade_level);
+	fade_level = 1.0f - fade_level;
+	glColor3f(
+		(1.0f - color[0]) * fade_level,
+		(1.0f - color[1]) * fade_level,
+		(1.0f - color[2]) * fade_level
+	);
 
 	glBegin(GL_QUADS);
 		glVertex2f(0.0f, 0.0f);

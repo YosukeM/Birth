@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{f85e8000-142c-4b70-98fd-669a731a6923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ogl">
+      <UniqueIdentifier>{824784ca-cf97-4268-89e9-d40bebc945d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fs">
+      <UniqueIdentifier>{2bb1d69a-f1d7-4737-8b84-ca9847324529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rsc">
+      <UniqueIdentifier>{a117cfb2-ca43-46a1-89a2-0fde53236504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rsc\meshloader">
+      <UniqueIdentifier>{8803fc4b-2b15-4e68-83f1-b62cd0185c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rsc\textureloader">
+      <UniqueIdentifier>{256e998e-ebe4-49f6-98d3-72b15147b036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{266e2d18-89a1-4b5e-a9a5-a7499872d3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{cdbcf4f0-2871-49e4-acf5-bbee3ad71036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{3bdc48b1-9638-4ede-97ff-b7b6135090fa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="global.h.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ObjMeshLoader.cpp">
+      <Filter>rsc\meshloader</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="IFileReader.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="FileFactory.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="TitleSequence.cpp" />
+    <ClCompile Include="oglTexture.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="oglShader.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="oglProgram.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="oglFramebuffer.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="TgaTextureLoader.cpp">
+      <Filter>rsc\textureloader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSequence.cpp" />
+    <ClCompile Include="oglPerspectiveCamera.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="gamePlayer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Angle2d.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4d.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="inputManager.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="inputMouse.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="oglMaterial.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="oglLight.cpp">
+      <Filter>ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="rscASyncManager.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="rscSyncManager.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="rscResource.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="rscMesh.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="rscTexture.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="gameSubordinate.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScene.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="rscShader.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="rscProgram.cpp">
+      <Filter>rsc</Filter>
+    </ClCompile>
+    <ClCompile Include="gameGeomTail.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector2d.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3d.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="IFileFactory.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="IFileReader.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="FileReader.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMeshLoader.h">
+      <Filter>rsc\meshloader</Filter>
+    </ClInclude>
+    <ClInclude Include="IMeshLoader.h">
+      <Filter>rsc\meshloader</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h" />
+    <ClInclude Include="TitleSequence.h" />
+    <ClInclude Include="oglTexture.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglShader.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglProgram.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglMeshbuffer.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglLinkError.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglFramebuffer.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglCompileError.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex3d.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureLoader.h">
+      <Filter>rsc\textureloader</Filter>
+    </ClInclude>
+    <ClInclude Include="TgaTextureLoader.h">
+      <Filter>rsc\textureloader</Filter>
+    </ClInclude>
+    <ClInclude Include="GetterSetter.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSequence.h" />
+    <ClInclude Include="guiBackground.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="guiElement.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="oglPerspectiveCamera.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="gamePlayer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Angle2d.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4d.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="inputMouse.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="inputManager.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="oglMaterial.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="oglLight.h">
+      <Filter>ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="rscASyncManager.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscIManager.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscResource.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscMesh.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscTexture.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscSyncManager.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="gameSubordinate.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScene.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="rscShader.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="rscProgram.h">
+      <Filter>rsc</Filter>
+    </ClInclude>
+    <ClInclude Include="gameGeomTail.h">
+      <Filter>game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileFactory.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="global.h" />
+  </ItemGroup>
+</Project>

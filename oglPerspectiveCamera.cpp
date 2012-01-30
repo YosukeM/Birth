@@ -2,7 +2,11 @@
 #include "GetterSetter.h"
 
 #include <GL/glfw.h>
-#include <GL/GLU.h>
+#ifdef _WIN32
+	#include <GL/GLU.h>
+#else
+	#include <OpenGL/glu.h>
+#endif
 
 using namespace ogl;
 

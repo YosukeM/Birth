@@ -4,18 +4,16 @@
 #include "gamePlayer.h"
 #include <GL/glfw.h>
 
-#include "oglShader.h"
+#include "gameScene.h"
+#include "rscShader.h"
+#include <gameaudio/gameaudio.h>
 
 GameSequence::GameSequence()
-	: _light(true),
-	  _rm(core::make_shared<rsc::SyncManager>()),
-	  _player(core::make_shared<game::Player>(_rm))
+	: _rm(core::make_shared<rsc::SyncManager>()),
+	_sceneIndex(0)
 {
-	_light.setAmbientColor(Color(0xFFFFFFFF));
-	_light.setDiffuseColor(Color(0xFFFFFFFF));
-	_light.setSpecularColor(Color(0xFFFFFFFF));
-
-	_cameraPosition = float3d(5, 6, 7);
+	_rm->setBasePath("./data/");
+	_scenes.push_back(core::make_shared<game::Scene>(_rm));
 
 	using namespace ogl;
 
@@ -25,29 +23,17 @@ GameSequence::GameSequence()
 	_createTextures(uint2d(values[2], values[3]));
 
 	// create shader
-	Shader blur_shader(Shader::ET_FRAGMENT);
-	blur_shader.source(
-		"uniform vec2 textureSize;"
-		"uniform sampler2DRect texture;\n"
-		"vec4 getColor(float dx, float dy) {\n"
-		"	vec2 pos = gl_TexCoord[0].st + vec2(dx, dy);\n"
-		"	return texture2DRect(texture, pos);"
-		"}\n"
-		"void main(void) {\n"
-		"	vec4 sum = getColor(0.0, 0.0);\n"
-		"	sum += getColor(1.0, 0.0);\n"
-		"	sum += getColor(-1.0, 0.0);\n"
-		"	sum += getColor(0.0, 1.0);\n"
-		"	sum += getColor(0.0, -1.0);\n"
-		"	gl_FragColor = gl_Color * 0.2 * sum;\n"
-		"}"
-	);
-	blur_shader.compile();
-	_blurProgram.attach(blur_shader);
+	core::shared_ptr<rsc::Shader> blur_shader = _rm->getShader("blur.frag");
+	blur_shader->compile();
+	_blurProgram.attach(blur_shader->getOglShader());
 	_blurProgram.link();
+
+	_bgm = gameaudio::getSoundManager().createSound("data/bgm.ogg", false, true);
+	// _bgm->play();
 }
 
 GameSequence::~GameSequence() {
+	gameaudio::getSoundManager().removeSound(_bgm);
 }
 
 
@@ -74,7 +60,7 @@ void GameSequence::_createTextures(const uint2d& viewport) {
 }
 
 void GameSequence::_update(f32 t) {
-	_player->update(t);
+	_scenes[_sceneIndex]->update(t);
 }
 
 void GameSequence::onResize(const uint2d& viewport) {
@@ -90,35 +76,23 @@ void GameSequence::_beginPostEffect() {
 }
 
 void GameSequence::_draw() {
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
-	_framebuffer.bind();
-	glViewport(0, 0, viewport[2], viewport[3]);
 
 	// 基本的な3Dオブジェクトの描画
+	_framebuffer.bind();
+	glViewport(0, 0, viewport[2], viewport[3]);
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		_camera.setPosition(_cameraPosition);
-		_camera.setMatrix();
-
-		glMatrixMode(GL_MODELVIEW);
-
-		_light.setPosition(_cameraPosition);
-		_light.setSpotDirection(float3d() - _cameraPosition);
-
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_LIGHT0);
-		_light.attach(GL_LIGHT0);
-
-		_player->draw(game::Node::EDS_SOLID);
-
-		glDisable(GL_LIGHT0);
-		glDisable(GL_DEPTH_TEST);
+		_scenes[_sceneIndex]->setDrawState(game::Scene::EDrawState::EDS_SOLID);
+		_scenes[_sceneIndex]->draw();
 	}
-
 	_framebuffer.unbind();
 
 	// ぼかしをかけるために縮小バッファを作成する
@@ -140,30 +114,31 @@ void GameSequence::_draw() {
 	_framebuffer3.unbind();
 
 	// バッファの内容をぼかしてスクリーン合成する
-	{
-		glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
-		glClear(GL_COLOR_BUFFER_BIT);
-		_beginPostEffect();
+	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+	glClear(GL_COLOR_BUFFER_BIT);
+	_beginPostEffect();
 
-		_colorBuffer->draw();
+	_colorBuffer->draw();
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE);
 
-		_blurProgram.use();
-		glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-		_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer->getSize().x), f32(_blurBuffer->getSize().y)));
-		_blurBuffer->draw();
+	_blurProgram.use();
+	glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+	_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer->getSize().x), f32(_blurBuffer->getSize().y)));
+	_blurBuffer->draw();
 
-		glColor4f(1.0f, 1.0f, 1.0f, 0.2f);
-		_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer2->getSize().x), f32(_blurBuffer2->getSize().y)));
-		_blurBuffer2->draw();
-		_blurProgram.unuse();
+	glColor4f(1.0f, 1.0f, 1.0f, 0.2f);
+	_blurProgram.setUniform("textureSize", float2d(f32(_blurBuffer2->getSize().x), f32(_blurBuffer2->getSize().y)));
+	_blurBuffer2->draw();
+	_blurProgram.unuse();
 
-		_blurBuffer2->draw();
+	_blurBuffer2->draw();
 
-		glDisable(GL_BLEND);
-	}
+	glDisable(GL_BLEND);
+
+	_scenes[_sceneIndex]->setDrawState(game::Scene::EDS_FADE);
+	_scenes[_sceneIndex]->draw();
 }
 
 core::shared_ptr<Sequence> GameSequence::_getNextSequence() {
