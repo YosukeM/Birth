@@ -47,9 +47,7 @@ Application::Application()
 
 	// ‚·‚×‚Ä‚ÌSequence‚ğƒ[ƒh‚·‚é
 	using namespace core;
-	_seqs.push_back(shared_static_cast<Sequence>(make_shared<TitleSequence>()));
-	_seqs.push_back(shared_static_cast<Sequence>(make_shared<GameSequence>()));
-	_seq = _seqs[1];
+	_seq = shared_static_cast<Sequence>(make_shared<GameSequence>());
 }
 
 Application::~Application() {

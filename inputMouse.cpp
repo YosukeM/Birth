@@ -5,16 +5,72 @@
 
 using namespace input;
 
-Mouse::Mouse() {
+namespace {
+	Mouse::EButton glfwMouse(int v) {
+		switch (v) {
+		case GLFW_MOUSE_BUTTON_LEFT:
+			return Mouse::EB_LEFT;
+		case GLFW_MOUSE_BUTTON_RIGHT:
+			return Mouse::EB_RIGHT;
+		case GLFW_MOUSE_BUTTON_MIDDLE:
+			return Mouse::EB_MIDDLE;
+		}
+	}
+}
 
+Mouse::Mouse() {
+	for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST - GLFW_MOUSE_BUTTON_1; ++i) {
+		_prevButton[i] = false;
+		_nextButton[i] = false;
+	}
 }
 
 void Mouse::update(f32) {
 	glfwGetMousePos(&_position.x, &_position.y);
+
+	for (int i = 0; i < GLFW_MOUSE_BUTTON_LAST - GLFW_MOUSE_BUTTON_1; ++i) {
+		_prevButton[i] = _nextButton[i];
+		_nextButton[i] = glfwGetMouseButton(i + GLFW_MOUSE_BUTTON_1);
+	}
 }
 
 int2d Mouse::getPosition() const {
 	return _position;
+}
+
+bool Mouse::isDown(EButton button) const {
+	return _nextButton[button];
+}
+
+bool Mouse::isUp(EButton button) const {
+	return !_nextButton[button];
+}
+
+bool Mouse::isPressed(EButton button) const {
+	return !_prevButton[button] && _nextButton[button];
+}
+
+float3d Mouse::getTransformed() const {
+	float3d from, to;
+
+	double modelview[16];
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+	double projection[16];
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+	int viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+
+	int win_w, win_h;
+	glfwGetWindowSize(&win_w, &win_h);
+
+	double obj_x, obj_y, obj_z;
+	gluUnProject(
+		_position.x, win_h - _position.y, 0.0,
+		modelview, projection, viewport,
+		&obj_x, &obj_y, &obj_z
+	);
+	from = float3d(f32(obj_x), f32(obj_y), f32(obj_z));
+	return from;
 }
 
 core::tuple<float3d, float3d> Mouse::getRay() const {

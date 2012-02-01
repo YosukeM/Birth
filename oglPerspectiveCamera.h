@@ -2,7 +2,7 @@
 
 namespace ogl {
 	class PerspectiveCamera {
-		float3d _position, _lookAt;
+		float3d _position, _lookAt, _up;
 		float _near, _far, _fov;
 	public:
 		PerspectiveCamera();
@@ -21,6 +21,9 @@ namespace ogl {
 
 		void setLookAt(const float3d&);
 		float3d getLookAt() const;
+		
+		void setUpVector(const float3d&);
+		float3d getUpVector() const;
 
 		void setMatrix();
 	};

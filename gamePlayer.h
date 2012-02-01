@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gameNode.h"
+#include "gameSpermatozoa.h"
 #include "oglMaterial.h"
 #include "rscMesh.h"
 #include "rscProgram.h"
@@ -13,23 +13,19 @@ namespace rsc {
 }
 
 namespace game {
-	class Player : public Node {
-		ogl::Material _material;
-		core::shared_ptr<rsc::Program> _program;
-		core::shared_ptr<rsc::Mesh> _mesh;
-
-		geom::Tail _tail;
+	class Player : public Spermatozoa {
 		Angle2d _theta;
 		float2d _pointer;
 
-		void _drawSolid();
+		float _speedUpCounter;
+
+		void _onDraw();
 
 	public:
+		static const float RADIUS;
+
 		Player(core::shared_ptr<rsc::IManager>);
 
-		float3d getPosition() const;
-
 		void update(float);
-		void draw(Node::EDrawState);
 	};
 }

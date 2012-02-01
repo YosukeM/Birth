@@ -27,16 +27,16 @@ int pixelstore_val(Texture::Source::EPixelStore ps) {
 bool sizeIsRect(const uint2d& size) {
 	if (size.x != size.y) return true;
 	if (size.x == 0) return false;
-	if ( ( size.x & (size.x - 1) ) == 0) return true;
-	else return false;
+	if ( ( size.x & (size.x - 1) ) == 0) return false;
+	else return true;
 }
 
 u32 sizeOfNotRect(const uint2d& size) {
-	int max = size.x > size.y? size.x : size.y;
-	int ret = 0;
+	u32 max = size.x > size.y? size.x : size.y;
+	u32 ret = 0;
 	for(u16 shift=2; shift<31; shift++){
 		ret = 1 << shift;
-		if (ret > max) {
+		if (ret >= max) {
 			return ret;
 		}
 	}
@@ -48,11 +48,6 @@ u32 sizeOfNotRect(const uint2d& size) {
 Texture::Texture()
 	: _id(0), _hasAlpha(false), _isRect(false)
 {
-	glGenTextures(1, &_id);
-	bind();
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	unbind();
 }
 
 Texture::Texture(const uint2d& size, Source::EPixelStore ps)
@@ -63,6 +58,7 @@ Texture::Texture(const uint2d& size, Source::EPixelStore ps)
 	if (ps == Source::EPS_LUMINANCE_ALPHA || ps == Source::EPS_RGBA) {
 		_hasAlpha = true;
 	}
+
 	glGenTextures(1, &_id);
 	bind();
 	int format = pixelstore_val(ps);
@@ -77,11 +73,13 @@ Texture::Texture(const uint2d& size, Source::EPixelStore ps)
 Texture::Texture(const Source& src)
 	: _id(0), _hasAlpha(false), _isRect(false)
 {
-	glGenTextures(1, &_id);
 	source(src);
 }
 
 void Texture::source(const Source& src) {
+	if (_id != 0) glDeleteTextures(1, &_id);
+	glGenTextures(1, &_id);
+
 	int format = pixelstore_val(src.pixelStore);
 	_isRect = sizeIsRect(src.size);
 
@@ -101,6 +99,7 @@ void Texture::source(const Source& src) {
 	glTexImage2D(texture_type, 0, format, src.size.x, src.size.y, 0, format, GL_UNSIGNED_BYTE, src.data);
 	glTexParameteri(texture_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(texture_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
 	glBindTexture(texture_type, 0);
 	glDisable(texture_type);
 }
@@ -128,19 +127,27 @@ void Texture::unbind() {
 #define WRAP_VAL(v) ((v)? GL_REPEAT : GL_CLAMP)
 
 void Texture::setRepeatX(bool repeat) {
+	bind();
 	glTexParameteri(_isRect? GL_TEXTURE_RECTANGLE_EXT : GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, WRAP_VAL(repeat));
+	unbind();
 }
 
 void Texture::setRepeatY(bool repeat) {
+	bind();
 	glTexParameteri(_isRect? GL_TEXTURE_RECTANGLE_EXT : GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, WRAP_VAL(repeat));
+	unbind();
 }
 
 void Texture::setMagFilter(EFilter filter) {
+	bind();
 	glTexParameteri(_isRect? GL_TEXTURE_RECTANGLE_EXT : GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter_val(filter));
+	unbind();
 }
 
 void Texture::setMinFilter(EFilter filter) {
+	bind();
 	glTexParameteri(_isRect? GL_TEXTURE_RECTANGLE_EXT : GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter_val(filter));
+	unbind();
 }
 
 void Texture::draw() {
@@ -164,6 +171,6 @@ float2d Texture::getRBTexCoord() const {
 		return float2d(f32(getSize().x), f32(getSize().y));
 	} else {
 		u32 size = sizeOfNotRect(getSize());
-		return float2d(float(size), float(size));
+		return float2d(f32(getSize().x) / float(size), f32(getSize().y) / float(size));
 	}
 }

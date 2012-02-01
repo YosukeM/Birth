@@ -3,6 +3,11 @@
 #include "Quaternion.h"
 
 namespace game {
+
+	/*
+	 * game::Nodeはゲーム内で表示するオブジェクトの基底クラス
+	 */
+
 	class Node {
 	protected:
 		float3d _position;
@@ -11,13 +16,15 @@ namespace game {
 		virtual void _drawSolid() {}
 		virtual void _drawEffect() {}
 
+	protected:
+		Node() {}
+
 	public:
 		typedef enum {
 			EDS_SOLID,
 			EDS_EFFECT,
 		} EDrawState;
 
-		Node() {}
 		virtual ~Node() {}
 
 		float3d getPosition() const;

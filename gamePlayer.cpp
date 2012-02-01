@@ -12,32 +12,21 @@
 
 using namespace game;
 
+const float Player::RADIUS = 1.3f;
+
 Player::Player(core::shared_ptr<rsc::IManager> rm)
-	:_tail(0.13f, 3.6f, 12, 20)
+	: Spermatozoa(rm), _speedUpCounter(0.0f)
 {
-	_mesh = rm->getMesh("spermatozoa.obj");
-
-	_material.setAmbientColor(Color(0x111111FF));
-	_material.setDiffuseColor(Color(0xFFFFFFFF));
-
-	_program = rm->getProgram("spermatozoa");
-}
-
-float3d Player::getPosition() const {
-	return _position;
+	// 色を設定
+	_material.setDiffuseColor(Color(0xC2F5FFFF));
 }
 
 void Player::update(float t) {
-	_theta += 1.0f * Angle2d::PI * 2.0f * t;
-	float3d dir = float3d(0.0f, 0.04f * _theta.sin(), 1.0f);
-	dir.normalize();
-
-	Quaternion prev_rotation = _rotation;
-
+	// カーソル方向に回転させる
 	if (_pointer.getLengthSQ() > 0.001f) {
 		float2d n = _pointer.getNormalized();
 		float3d axis(n.y, - n.x, 0.0f);
-		f32 level = _pointer.getLength() * 15.0f;
+		f32 level = _pointer.getLength();
 		if (level < 0.0f) level = 0.0f;
 		if (level > 1.0f) level = 1.0f;
 		Quaternion target(Angle2d::PI * 0.1f * level, axis);
@@ -47,64 +36,45 @@ void Player::update(float t) {
 	}
 	_rotation.normalize();
 
-	float3d velocity = - 20.0f * _rotation.getRotated(float3d(0.0f, 0.0f, -1.0f));
+	// 速度を決める
+	float speed = 20.0f;
+	if (_speedUpCounter > 0.75f) {
+		speed = 40.0f;
+		_speedUpCounter -= t;
+	} else if (_speedUpCounter > 0.0f) {
+		speed = 20.0f + 20.0f * _speedUpCounter / 0.75f;
+		_speedUpCounter -= t;
+	}
+
+	// 位置を更新
+	float3d velocity = speed * _rotation.getRotated(float3d(0.0f, 0.0f, -1.0f));
 	_position += velocity * t;
 
-	_tail.update(t, Quaternion(0.8f * _theta.sin(), float3d(0, 1, 0)) * _rotation);
-}
+	// 尻尾を揺らす
+	_theta += Angle2d::PI * speed / 10.0f * t;
+	_tail.update(t, _rotation * Quaternion(0.4f * _theta.sin(), float3d(0, 1, 0)));
 
-void Player::draw(Node::EDrawState eds) {
-	glPushMatrix();
-		glTranslatef(_position.x, _position.y, _position.z);
-		if (eds == EDS_SOLID) {
-			const core::tuple<float3d, float3d> ray = input::Manager::instance()->getMouse()->getRay();
-
-			float3d p;
-			if (abs(core::get<0>(ray).z - core::get<1>(ray).z) > 0.0001f) {
-				float t = - core::get<1>(ray).z / (core::get<0>(ray).z - core::get<1>(ray).z);
-				p = core::get<0>(ray) * t + core::get<1>(ray) * (1.0f - t);
-			} else {
-				p.x = core::get<0>(ray).x;
-				p.y = core::get<0>(ray).y;
-			}
-			_pointer = float2d(p.x, p.y);
-
-			glPointSize(10.0f);
-			glBegin(GL_POINTS);
-			glVertex2f(p.x, p.y);
-			glEnd();
+	// クリックで加速
+	if (_speedUpCounter <= 0.4f) {
+		if (input::Manager::instance()->getMouse()->isPressed(input::Mouse::EB_LEFT)) {
+			_speedUpCounter = 1.5f;
 		}
-
-		core::tuple<Angle2d, float3d> angleaxis = _rotation.getAngleAxis();
-		glRotatef(core::get<0>(angleaxis).degree(), core::get<1>(angleaxis).x, core::get<1>(angleaxis).y, core::get<1>(angleaxis).z);
-
-		if (eds == EDS_SOLID) {
-			_drawSolid();
-		} else {
-			_drawEffect();
-		}
-	glPopMatrix();
+	}
 }
 
-void Player::_drawSolid() {
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-	glEnable(GL_NORMALIZE);
-	
-	_material.bind();
-	_program->use();
-	_mesh->draw();
-	glPushMatrix();
-		glTranslatef(0.0f, 0.0f, 2.1f);
-		core::tuple<Angle2d, float3d> angleaxis = _rotation.getAngleAxis();
-		glRotatef(- core::get<0>(angleaxis).degree(), core::get<1>(angleaxis).x, core::get<1>(angleaxis).y, core::get<1>(angleaxis).z);
-		_tail.draw();
-	glPopMatrix();
-	_program->unuse();
-	_material.unbind();
+void Player::_onDraw() {
+	// マウスの3D位置を計算
+	const core::tuple<float3d, float3d> ray = input::Manager::instance()->getMouse()->getRay();
 
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_NORMALIZE);
+	_material.setDiffuseColor(_speedUpCounter > 0.1f? Color(0xC2F5FFBB) : Color(0xC2F5FFFF));
+
+	float3d p;
+	if (abs(core::get<0>(ray).z - core::get<1>(ray).z) > 0.0001f) {
+		float t = - core::get<1>(ray).z / (core::get<0>(ray).z - core::get<1>(ray).z);
+		p = core::get<0>(ray) * t + core::get<1>(ray) * (1.0f - t);
+	} else {
+		p.x = core::get<0>(ray).x;
+		p.y = core::get<0>(ray).y;
+	}
+	_pointer = float2d(p.x, p.y);
 }
-

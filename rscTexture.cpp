@@ -8,8 +8,8 @@ using namespace textureloader;
 Texture::Texture()
 	: _repeatX(true),
 	_repeatY(true),
-	_magFilter(ogl::Texture::EF_NEAREST),
-	_minFilter(ogl::Texture::EF_NEAREST)
+	_magFilter(ogl::Texture::EF_LINEAR),
+	_minFilter(ogl::Texture::EF_LINEAR)
 {
 }
 
@@ -60,6 +60,11 @@ void Texture::setMinFilter(Texture::EFilter v) {
 Vector2d<u32> Texture::getSize() const {
 	if (!_isLoaded) return Vector2d<u32>();
 	return _texture.getSize();
+}
+
+float2d Texture::getRBTexCoord() const {
+	if (!_isLoaded) return float2d();
+	return _texture.getRBTexCoord();
 }
 
 bool Texture::hasAlpha() const {

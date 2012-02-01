@@ -5,6 +5,12 @@
 namespace game {
 	namespace geom {
 
+		/**
+		 * geom::Tailはプレイヤーの尻尾の動きだけを担当するクラス
+		 * 汎用性はほぼない
+		 * JointはTailが内部で使ってるクラスだから気にする必要はない
+		 */
+
 		class Joint {
 		public:
 			float3d position;

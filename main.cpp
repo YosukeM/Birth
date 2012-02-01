@@ -72,12 +72,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR argv, int
 int main(int argc, const char** argv)
 #endif
 {
+	int window_mode = GLFW_WINDOW;
+	int2d window_size(800, 450);
+#ifdef _WIN32
+#ifndef _DEBUG
+	if (MessageBox(NULL, TEXT("フルスクリーンモードで起動しても\nよろしいですか？"), TEXT("確認"), MB_YESNO) == IDYES) {
+		window_mode = GLFW_FULLSCREEN;
+		window_size.x = GetSystemMetrics(SM_CXSCREEN);
+		window_size.y = GetSystemMetrics(SM_CYSCREEN);
+	}
+#endif
+#endif
+
 	// GLFWを初期化
 	if (!glfwInit()) {
 		showError("Failed to initialize GLFW");
 		return -1;
 	}
-	if (!glfwOpenWindow(800, 450, 8, 8, 8, 0, 0, 0, GLFW_WINDOW)) {
+	if (!glfwOpenWindow(window_size.x, window_size.y, 8, 8, 8, 0, 0, 0, window_mode)) {
 		showError("Failed to open a window");
 		glfwTerminate();
 		return -1;
@@ -117,7 +129,7 @@ int main(int argc, const char** argv)
 			app.update(f32(newTime - prevTime));
 			prevTime = newTime;
 			glfwSwapBuffers();
-			if (!glfwGetWindowParam(GLFW_OPENED)) {
+			if (!glfwGetWindowParam(GLFW_OPENED) || glfwGetKey(GLFW_KEY_ESC)) {
 				if (app.onClose()) break;
 			}
 		}

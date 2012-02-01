@@ -3,13 +3,15 @@
 #include "gamePlayer.h"
 #include "gameSubordinate.h"
 
+#include "Random.h"
+
 using namespace game;
 
-Scene::Scene(core::shared_ptr<rsc::IManager> rm)
+Scene::Scene(core::shared_ptr<rsc::IManager> rm, float length)
 	: _light(true),
 	_drawState(EDS_SOLID),
 	_count(0.0f),
-	_countLimit(10.0f)
+	_countLimit(length)
 {
 	_fadein(2.0f);
 
@@ -17,13 +19,10 @@ Scene::Scene(core::shared_ptr<rsc::IManager> rm)
 	_light.setDiffuseColor(Color(0xFFFFFFFF));
 	_light.setSpecularColor(Color(0xFFFFFFFF));
 
-	_cameraPosition = float3d(3.0f, 1.0f, 0.0f);
 	_camera.setFar(500.0f);
 	_camera.setFov(Angle2d::PI / 6.0f);
 
 	_player = core::make_shared<Player>(rm);
-	_player->setPosition(float3d(0.0f, 0.0f, 100.0f));
-
 	_nodeList.push_back(_player);
 }
 
@@ -37,19 +36,22 @@ void Scene::_update(f32 t) {
 	if (_count > _countLimit - 2.0f && _getFadeState() == Sequence::EFS_NONE) {
 		_fadeout(2.0f);
 	}
+
+	_onUpdate(t);
 }
 
 void Scene::_draw() {
 	if (_drawState == EDS_FADE) return;
 
-	_camera.setPosition(_cameraPosition);
-	_camera.setLookAt(_player->getPosition());
+	if (_drawState == EDS_SOLID) {
+		_setupCamera();
+	}
 	_camera.setMatrix();
 
 	glMatrixMode(GL_MODELVIEW);
 
-	_light.setPosition(_cameraPosition);
-	_light.setSpotDirection(float3d() - _cameraPosition);
+	// _light.setPosition(_camera.getPosition());
+	_light.setSpotDirection(_camera.getLookAt() - _camera.getPosition());
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHT0);
@@ -75,6 +77,10 @@ void Scene::draw() {
 	}
 }
 
+void Scene::setNextSequence(core::shared_ptr<Sequence> seq) {
+	_nextSequence = seq;
+}
+
 core::shared_ptr<Sequence> Scene::_getNextSequence() {
-	return core::shared_ptr<Sequence>();
+	return _nextSequence;
 }

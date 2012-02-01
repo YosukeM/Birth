@@ -43,9 +43,9 @@ Quaternion Quaternion::operator*(const Quaternion& q) const {
 	Quaternion out;
 
 	out.w = q.w * w - q.x * x - q.y * y - q.z * z;
-	out.x = q.w * x - q.x * w - q.z * y - q.y * z;
-	out.y = q.w * y - q.y * w - q.x * z - q.z * x;
-	out.z = q.w * z - q.z * w - q.y * x - q.x * y;
+	out.x = q.w * x + q.x * w + q.z * y - q.y * z;
+	out.y = q.w * y + q.y * w + q.x * z - q.z * x;
+	out.z = q.w * z + q.z * w + q.y * x - q.x * y;
 
 	return out;
 }
@@ -147,6 +147,6 @@ Quaternion Quaternion::slerp(const Quaternion& a, const Quaternion& b_, f32 t) {
 }
 
 float3d Quaternion::getRotated(const float3d& v) {
-	Quaternion out = (*this) * Quaternion(0.0f, v.x, v.y, v.z);
+	Quaternion out = (*this) * Quaternion(0.0f, v.x, v.y, v.z) * this->getConjugate();
 	return float3d(out.x, out.y, out.z);
 }

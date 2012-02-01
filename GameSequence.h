@@ -18,23 +18,37 @@ namespace rsc {
 
 namespace game {
 	class Player;
+	class Status;
+}
+
+namespace gui {
+	class Text;
 }
 
 namespace gameaudio {
 	class ISound;
 }
 
+/**
+ * GameSequenceはゲーム全体のシーンの流れを制御する。
+ * 適切な順番でシーンの描画メソッドを呼び、それにポストエフェクトを加えて、
+ * 最終的な画面を出力する。
+ */
+
 class GameSequence : public Sequence {
 	core::shared_ptr<rsc::SyncManager> _rm;
 
 	core::vector<core::shared_ptr<game::Scene> > _scenes;
-	u32 _sceneIndex;
+	core::shared_ptr<game::Scene> _currentScene;
 
 	core::shared_ptr<ogl::Texture> _colorBuffer, _depthBuffer, _blurBuffer, _blurBuffer2;
 	ogl::Framebuffer _framebuffer, _framebuffer2, _framebuffer3;
 	ogl::Program _blurProgram;
 
 	gameaudio::ISound* _bgm;
+	core::shared_ptr<game::Status> _status;
+	double _initialSpermatozoaNum;
+	core::shared_ptr<gui::Text> _text;
 
 	void _createTextures(const uint2d& viewport);
 	void _beginPostEffect();

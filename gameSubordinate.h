@@ -1,19 +1,19 @@
 #pragma once
 
-#include "gameNode.h"
-
-namespace rsc {
-	class IManager;
-}
+#include "gameSpermatozoa.h"
+#include "Angle2d.h"
 
 namespace game {
-	class Subordinate : public Node {
+	class Scene;
+
+	class Subordinate : public Spermatozoa {
+		Scene* _scene;
+		float3d _velocity;
+		Angle2d _theta;
+		float _omega, _width;
 	public:
-		Subordinate(core::shared_ptr<rsc::IManager>);
+		Subordinate(core::shared_ptr<rsc::IManager>, Scene* _scene);
 
 		void update(f32);
-	protected:
-		float3d _velocity;
-		void _drawSolid();
 	};
 }

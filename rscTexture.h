@@ -28,6 +28,7 @@ namespace rsc {
 		void setMinFilter(EFilter);
 
 		Vector2d<u32> getSize() const;
+		float2d getRBTexCoord() const;
 		bool hasAlpha() const;
 
 	protected:

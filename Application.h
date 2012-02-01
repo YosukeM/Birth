@@ -9,7 +9,6 @@ class Sequence;
  */
 class Application
 {
-	core::vector<core::shared_ptr<Sequence> > _seqs;
 	core::shared_ptr<Sequence> _seq;
 
 	void _checkExtensions();

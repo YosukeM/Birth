@@ -11,7 +11,7 @@
 using namespace ogl;
 
 PerspectiveCamera::PerspectiveCamera()
-	: _near(1.0f), _far(1000.0f), _fov(3.1415926535897932f / 4.0f)
+	: _near(1.0f), _far(1000.0f), _fov(3.1415926535897932f / 4.0f), _up(0.0f, 1.0f, 0.0f)
 {
 }
 
@@ -20,6 +20,7 @@ PerspectiveCamera::PerspectiveCamera()
 
 GETSET_L(float3d, Position, _position)
 GETSET_L(float3d, LookAt, _lookAt)
+GETSET_L(float3d, UpVector, _up)
 
 GETSET_LP(float, Near, _near)
 GETSET_LP(float, Far, _far)
@@ -38,6 +39,6 @@ void PerspectiveCamera::setMatrix() {
 	gluLookAt(
 		_position.x, _position.y, _position.z,
 		_lookAt.x, _lookAt.y, _lookAt.z,
-		0.0, 1.0, 0.0
+		_up.x, _up.y, _up.z
 	);
 }

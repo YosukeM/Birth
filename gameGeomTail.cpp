@@ -8,7 +8,7 @@ using namespace geom;
 void Joint::update(float t, const Joint& prev_joint, float interval) {
 	rotation = Quaternion::slerp(rotation, prev_joint.rotation, t * 30.0f);
 	rotation.normalize();
-	float3d target = prev_joint.position + rotation.getRotated(float3d(0, 0, - interval));
+	float3d target = prev_joint.position + rotation.getRotated(float3d(0, 0, interval));
 	position += (target - position) * 50.0f * t;
 }
 

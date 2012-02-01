@@ -127,10 +127,20 @@
   <ItemGroup>
     <ClCompile Include="Angle2d.cpp" />
     <ClCompile Include="gameGeomTail.cpp" />
+    <ClCompile Include="gameMitochondria.cpp" />
     <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="gameOvum.cpp" />
     <ClCompile Include="gameScene.cpp" />
+    <ClCompile Include="gameSpermatozoa.cpp" />
+    <ClCompile Include="gameStatus.cpp" />
     <ClCompile Include="gameSubordinate.cpp" />
+    <ClCompile Include="guiBackground.cpp" />
+    <ClCompile Include="guiImageButton.cpp" />
+    <ClCompile Include="guiImage.cpp" />
+    <ClCompile Include="guiPositionalElement.cpp" />
+    <ClCompile Include="guiText.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="rscASyncManager.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
@@ -165,8 +175,22 @@
   <ItemGroup>
     <ClInclude Include="Angle2d.h" />
     <ClInclude Include="gameGeomTail.h" />
+    <ClInclude Include="gameMitochondria.h" />
+    <ClInclude Include="gameOvum.h" />
     <ClInclude Include="gameScene.h" />
+    <ClInclude Include="gameScene1.h" />
+    <ClInclude Include="gameScene2.h" />
+    <ClInclude Include="gameScene4.h" />
+    <ClInclude Include="gameScene5.h" />
+    <ClInclude Include="gameScene6.h" />
+    <ClInclude Include="gameSpermatozoa.h" />
+    <ClInclude Include="gameStatus.h" />
     <ClInclude Include="gameSubordinate.h" />
+    <ClInclude Include="guiImageButton.h" />
+    <ClInclude Include="guiImage.h" />
+    <ClInclude Include="guiPositionalElement.h" />
+    <ClInclude Include="guiText.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="rscASyncManager.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -201,6 +225,7 @@
     <ClInclude Include="rscProgram.h" />
     <ClInclude Include="rscResource.h" />
     <ClInclude Include="rscShader.h" />
+    <ClInclude Include="gameScene3.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="oglShader.h" />
     <ClInclude Include="rscSyncManager.h" />

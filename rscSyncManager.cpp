@@ -29,6 +29,15 @@ core::shared_ptr<Mesh> SyncManager::getMesh(const core::string& id) {
 }
 
 core::shared_ptr<Texture> SyncManager::getTexture(const core::string& id) {
+	TexMapType::iterator itr = _texMap.find(id);
+	if (itr == _texMap.end()) {
+		core::shared_ptr<Texture> texture = core::make_shared<Texture>();
+		_texMap[id] = texture;
+		texture->load(_fileFactory->createFileReader((_basePath + id).c_str()));
+		return texture;
+	} else {
+		return itr->second;
+	}
 	return core::shared_ptr<Texture>();
 }
 

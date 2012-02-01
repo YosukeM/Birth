@@ -10,7 +10,7 @@ class Sequence {
 private:
 	f32 _fadeTimer, _fadeDuration;
 	Color _fadeColor;
-protected:
+public:
 	typedef enum {
 		EFS_NONE,
 		EFS_FADEIN,

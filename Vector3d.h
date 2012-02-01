@@ -123,7 +123,7 @@ public:
 
 	Vector3d<T> getNormalized() const
 	{
-		f64 length = x*x + y*y + z*z;
+		f32 length = x*x + y*y + z*z;
 		if (std::abs(length) < 0.001f) // this check isn't an optimization but prevents getting NAN in the sqrt.
 			return *this;
 		length = 1.0f / sqrt(length);

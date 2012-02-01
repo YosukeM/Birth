@@ -5,6 +5,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include <string>
 #include <vector>
 #include <list>
@@ -23,6 +24,7 @@ namespace core {
 	using boost::shared_ptr;
 	using boost::scoped_ptr;
 	using boost::make_shared;
+	using boost::weak_ptr;
 	using boost::shared_dynamic_cast;
 	using boost::shared_static_cast;
 
