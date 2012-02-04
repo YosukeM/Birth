@@ -52,11 +52,11 @@ void Indicator::draw(const uint2d& viewport_size) {
 	_bar->setSize(float2d(93.0f * (f32)_status->getEnergyNum() / (f32)game::Status::MAX_ENERGY_NUM, 16));
 
 	// •`‰æ
-	f32 w_h_ratio =  (f32)viewport_size.x / (f32)viewport_size.y;
+	f32 h_w_ratio =  (f32)viewport_size.y / (f32)viewport_size.x;
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, 450.0 * w_h_ratio, 450.0, 0.0);
+	gluOrtho2D(0.0, 800.0, 800.0 * h_w_ratio, 0.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
