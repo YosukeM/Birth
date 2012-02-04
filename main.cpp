@@ -14,12 +14,6 @@
 #include <gameaudio/gameaudio.h>
 
 namespace {
-
-/**
- * グローバル変数
- */
-Application *gApp = NULL;
-
 /**
  * ウィンドウリサイズ時のコールバック
  * アスペクト比を4:3から16:9の間にし、それを超える場合はレターボックスをつける
@@ -43,8 +37,8 @@ void onResize(int window_w, int window_h) {
 	glLoadIdentity();
 
 	// Applicationのコールバック関数を呼ぶ
-	if (gApp) {
-		gApp->onResize(viewport);
+	if (Application::hasInstance()) {
+		Application::instance()->onResize(viewport);
 	}
 }
 
@@ -115,10 +109,7 @@ int main(int argc, const char** argv)
 
 	try {
 		// Applicationのコンストラクタを呼ぶ
-		Application app;
-
-		// 一時変数に格納（GLFWのコールバック関数内で使う）
-		gApp = &app;
+		Application::instance();
 
 		// メインループ
 		double newTime, prevTime;
@@ -126,29 +117,26 @@ int main(int argc, const char** argv)
 		while (true) {
 			newTime = glfwGetTime();
 			input::Manager::instance()->update(f32(newTime - prevTime));
-			app.update(f32(newTime - prevTime));
+			Application::instance()->update(f32(newTime - prevTime));
 			prevTime = newTime;
 			glfwSwapBuffers();
 			if (!glfwGetWindowParam(GLFW_OPENED) || glfwGetKey(GLFW_KEY_ESC)) {
-				if (app.onClose()) break;
+				if (Application::instance()->onClose()) break;
 			}
 		}
 
-		// 一時変数を破棄、Applicationのデストラクタが呼ばれる。
-		gApp = NULL;
-
 	} catch (Error& e) {
-		gApp = NULL;
 		showError(e.what());
 	} catch (std::bad_alloc&) {
-		gApp = NULL;
 		showError("Memory shortage");
 	} catch (std::runtime_error& e) {
 		showError(e.what());
 	} catch (...) {
-		gApp = NULL;
 		showError("Unknown Error");
 	}
+	
+	// Applicationのデストラクタを呼ぶ。
+	Application::deleteInstance();
 
 	// 終了処理
 	glfwCloseWindow();

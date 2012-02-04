@@ -17,6 +17,7 @@ namespace game {
 	class Enemy;
 	class Item;
 	class Mother;
+	class Status;
 
 	/**
 	 * game::Sceneはカメラの1カットに相当する
@@ -50,7 +51,7 @@ namespace game {
 		virtual void _setupCamera() = 0;
 
 	public:
-		Scene(core::shared_ptr<rsc::IManager>, float length);
+		Scene(core::shared_ptr<rsc::IManager>, core::shared_ptr<Status>, float length);
 
 		void init();
 
@@ -59,5 +60,7 @@ namespace game {
 		void setDrawState(EDrawState);
 
 		void draw();
+
+		f32 getCountLimit() const { return _countLimit; }
 	};
 }

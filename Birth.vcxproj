@@ -99,7 +99,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>global.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)\Birth.pch</PrecompiledHeaderOutputFile>
-      <PreprocessorDefinitions>GLEW_STATIC;QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;_DEBUG;USING_PCH;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;QT_NO_DEBUG;NDEBUG;_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;USING_PCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
@@ -126,7 +126,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Angle2d.cpp" />
+    <ClCompile Include="DescriptionSequence.cpp" />
+    <ClCompile Include="gameGeomParticle.cpp" />
     <ClCompile Include="gameGeomTail.cpp" />
+    <ClCompile Include="gameIndicator.cpp" />
     <ClCompile Include="gameMitochondria.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameOvum.cpp" />
@@ -138,6 +141,7 @@
     <ClCompile Include="guiImageButton.cpp" />
     <ClCompile Include="guiImage.cpp" />
     <ClCompile Include="guiPositionalElement.cpp" />
+    <ClCompile Include="guiRectangle.cpp" />
     <ClCompile Include="guiText.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -174,7 +178,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle2d.h" />
+    <ClInclude Include="DescriptionSequence.h" />
+    <ClInclude Include="gameGeomParticle.h" />
     <ClInclude Include="gameGeomTail.h" />
+    <ClInclude Include="gameIndicator.h" />
     <ClInclude Include="gameMitochondria.h" />
     <ClInclude Include="gameOvum.h" />
     <ClInclude Include="gameScene.h" />
@@ -189,8 +196,10 @@
     <ClInclude Include="guiImageButton.h" />
     <ClInclude Include="guiImage.h" />
     <ClInclude Include="guiPositionalElement.h" />
+    <ClInclude Include="guiRectangle.h" />
     <ClInclude Include="guiText.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="rscASyncManager.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -315,6 +324,12 @@ echo #include "global.h"&gt;&gt;global.h.cpp</Command>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(INHERIT)</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Birth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

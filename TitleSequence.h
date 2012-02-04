@@ -19,6 +19,13 @@ class TitleSequence : public Sequence {
 	core::shared_ptr<gui::Image> _title;
 	core::vector<core::shared_ptr<gui::ImageButton> > _buttons;
 
+	typedef enum {
+		EBT_UNDEFINED,
+		EBT_GAME,
+		EBT_DESCRIPTION
+	} EButtonTag;
+	EButtonTag _buttonTag;
+
 public:
 	TitleSequence();
 	~TitleSequence();

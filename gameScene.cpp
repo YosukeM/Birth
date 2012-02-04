@@ -7,7 +7,7 @@
 
 using namespace game;
 
-Scene::Scene(core::shared_ptr<rsc::IManager> rm, float length)
+Scene::Scene(core::shared_ptr<rsc::IManager> rm, core::shared_ptr<Status> status, float length)
 	: _light(true),
 	_drawState(EDS_SOLID),
 	_count(0.0f),
@@ -22,7 +22,7 @@ Scene::Scene(core::shared_ptr<rsc::IManager> rm, float length)
 	_camera.setFar(500.0f);
 	_camera.setFov(Angle2d::PI / 6.0f);
 
-	_player = core::make_shared<Player>(rm);
+	_player = core::make_shared<Player>(rm, status);
 	_nodeList.push_back(_player);
 }
 

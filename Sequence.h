@@ -38,6 +38,10 @@ protected:
 	// \return EFS_NONE | EFS_FADEIN | EFS_FADEOUT
 	EFadeState _getFadeState() const;
 
+	// フェーディングの進行状況を取得する。
+	// FADEIN時は1から0へ、FADEOUT時は0から1へ推移する値が得られる。
+	float _getFadeLevel() const;
+
 	// サブクラスが実装すべき関数
 	virtual void _draw() = 0;
 	virtual void _update(f32) = 0;

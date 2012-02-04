@@ -34,8 +34,8 @@ void Mitochondria::_drawEffect() {
 	float v[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, v);
 
-	const float sizeX = 0.8f;
-	const float sizeY = 0.8f;
+	const float sizeX = 0.4f;
+	const float sizeY = 0.4f;
 
 	glLoadIdentity();
 

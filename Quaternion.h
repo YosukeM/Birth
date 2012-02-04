@@ -26,5 +26,7 @@ public:
 
 	static Quaternion slerp(const Quaternion& a, const Quaternion& b, f32 blend);
 
+	static Quaternion fromDirection(const float3d& n, const float3d& axis);
+
 	float3d getRotated(const float3d&);
 };

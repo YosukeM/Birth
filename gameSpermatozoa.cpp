@@ -67,3 +67,7 @@ void Spermatozoa::_drawSolid() {
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_NORMALIZE);
 }
+
+void Spermatozoa::setOvum(core::shared_ptr<Ovum> ovum) {
+	_ovum = ovum;
+}

@@ -9,49 +9,57 @@
 #include "TitleSequence.h"
 #include "GameSequence.h"
 
+#include "rscSyncManager.h"
+
 #include <GL/glfw.h>
+#include <gameaudio/gameaudio.h>
 #include <boost/lexical_cast.hpp>
 
 namespace {
-	// 表示画面全体を覆うような平面を作成
-	void createPlane(ogl::Meshbuffer<ogl::Vertex3dT, u16>& mesh) {
-		std::vector<ogl::Vertex3dT> verts;
-		ogl::Vertex3dT vert;
-		vert.position = float3d(-1.0f, 1.0f, 0.0f);
-		vert.texCoord = float2d(0.0f, 1.0f);
-		verts.push_back(vert);
-		vert.position = float3d(-1.0f, -1.0f, 0.0f);
-		vert.texCoord = float2d(0.0f, 0.0f);
-		verts.push_back(vert);
-		vert.position = float3d(1.0f, -1.0f, 0.0f);
-		vert.texCoord = float2d(1.0f, 0.0f);
-		verts.push_back(vert);
-		vert.position = float3d(1.0f, 1.0f, 0.0f);
-		vert.texCoord = float2d(1.0f, 1.0f);
-		verts.push_back(vert);
+	Application *gApp = NULL;
+}
 
-		std::vector<u16> indices;
-		indices.push_back(0);
-		indices.push_back(1);
-		indices.push_back(2);
-		indices.push_back(3);
 
-		mesh.generate(verts, indices, ogl::Meshbuffer<ogl::Vertex3dT, u16>::EDM_QUADS);
+bool Application::hasInstance() {
+	return gApp != NULL;
+}
+
+Application* Application::instance() {
+	if (!gApp) {
+		gApp = new Application();
+		gApp->init();
 	}
+	return gApp;
+}
+
+void Application::deleteInstance() {
+	delete gApp;
+	gApp = NULL;
 }
 
 Application::Application()
+	: _bgm(NULL)
 {
+}
+
+void Application::init() {
 	// Extensionsを確認
 	_checkExtensions();
 
-	// すべてのSequenceをロードする
+	// BGM
+	_bgm = gameaudio::getSoundManager().createSound("data/bgm.ogg", false, false);
+
+	// リソースマネージャ
+	_rm = core::make_shared<rsc::SyncManager>();
+	_rm->setBasePath("./data/");
+
+	// Sequenceをロードする
 	using namespace core;
-	_seq = shared_static_cast<Sequence>(make_shared<GameSequence>());
+	_seq = shared_static_cast<Sequence>(make_shared<TitleSequence>());
 }
 
 Application::~Application() {
-
+	if (_bgm) gameaudio::getSoundManager().removeSound(_bgm);
 }
 
 void Application::_checkExtensions() {
@@ -111,4 +119,12 @@ void Application::onResize(const uint2d& viewport_size) {
 
 bool Application::onClose() {
 	return true;
+}
+
+gameaudio::ISound* Application::getBGM() const {
+	return _bgm;
+}
+
+core::shared_ptr<rsc::SyncManager> Application::getResourceManager() const {
+	return _rm;
 }

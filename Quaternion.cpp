@@ -150,3 +150,8 @@ float3d Quaternion::getRotated(const float3d& v) {
 	Quaternion out = (*this) * Quaternion(0.0f, v.x, v.y, v.z) * this->getConjugate();
 	return float3d(out.x, out.y, out.z);
 }
+
+Quaternion Quaternion::fromDirection(const float3d& n, const float3d& axis) {
+	float3d t = axis.getNormalized().crossProduct(n.getNormalized());
+	return Quaternion(Angle2d::asin(t.getLength()), t);
+}

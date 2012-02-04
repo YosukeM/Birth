@@ -10,15 +10,14 @@
 #include "oglFramebuffer.h"
 #include "oglProgram.h"
 
-#include "gameScene.h"
-
 namespace rsc {
 	class SyncResourceManager;
 }
 
 namespace game {
-	class Player;
+	class Scene;
 	class Status;
+	class Indicator;
 }
 
 namespace gui {
@@ -28,6 +27,8 @@ namespace gui {
 namespace gameaudio {
 	class ISound;
 }
+
+class Application;
 
 /**
  * GameSequenceはゲーム全体のシーンの流れを制御する。
@@ -45,10 +46,13 @@ class GameSequence : public Sequence {
 	ogl::Framebuffer _framebuffer, _framebuffer2, _framebuffer3;
 	ogl::Program _blurProgram;
 
-	gameaudio::ISound* _bgm;
 	core::shared_ptr<game::Status> _status;
+	core::shared_ptr<game::Indicator> _indicator;
+	core::shared_ptr<Sequence> _nextSequence;
 	double _initialSpermatozoaNum;
-	core::shared_ptr<gui::Text> _text;
+	double _playerRank;
+
+	u32 _sceneIndex;
 
 	void _createTextures(const uint2d& viewport);
 	void _beginPostEffect();

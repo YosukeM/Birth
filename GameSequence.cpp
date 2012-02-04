@@ -12,25 +12,29 @@
 #include "gameScene6.h"
 
 #include "gameStatus.h"
+#include "gameIndicator.h"
 #include "guiText.h"
 #include "rscShader.h"
 #include <gameaudio/gameaudio.h>
 
 #include "Random.h"
-#include <boost/lexical_cast.hpp>
+#include "Application.h"
 
 GameSequence::GameSequence()
-	: _rm(core::make_shared<rsc::SyncManager>())
+	: _rm(Application::instance()->getResourceManager())
 {
-	// リソースマネージャを初期化
-	_rm->setBasePath("./data/");
-
 	// game::Statusを初期化
 	_status = core::make_shared<game::Status>();
 	_initialSpermatozoaNum = std::floor(core::random::getDouble(100000000.0, 400000000.0));
+	_playerRank = core::random::getDouble(0.4, 0.7);
 	_status->setTotalNum((u32)_initialSpermatozoaNum);
+	_status->setPlayerRank((u32)(_initialSpermatozoaNum * _playerRank));
+
+	// game::Indicatorを初期化
+	_indicator = core::make_shared<game::Indicator>(_rm, _status);
 
 	// シーンを作成
+	const u32 CURRENT_SCENE = 0;
 	_scenes.push_back(core::make_shared<game::Scene1>(_rm, _status));
 	_scenes.push_back(core::make_shared<game::Scene2>(_rm, _status));
 	_scenes.push_back(core::make_shared<game::Scene3>(_rm, _status));
@@ -40,15 +44,8 @@ GameSequence::GameSequence()
 	for (u32 i = 1; i < _scenes.size(); ++i) {
 		_scenes[i-1]->setNextSequence(_scenes[i]);
 	}
-	_currentScene = _scenes[5];
-
-	// GUIの定義
-	core::unordered_map<char, uint2d> map;
-	for (u32 i = 0; i < 10; ++i) {
-		map['0' + i] = uint2d(273.0f / 11.0f * i, 0.0f);
-	}
-	map['/'] = uint2d(35.45f * 10, 0.0f);
-	_text = core::make_shared<gui::Text>(_rm->getTexture("numbers.tga"), uint2d(11, 1), map);
+	_currentScene = _scenes[CURRENT_SCENE];
+	_sceneIndex = CURRENT_SCENE;
 
 	// レンダリングパスの準備
 	{
@@ -67,11 +64,17 @@ GameSequence::GameSequence()
 	}
 
 	// BGMを再生
-	_bgm = gameaudio::getSoundManager().createSound("data/bgm.ogg", false, true);
+	f32 seek = 0.0f;
+	for (u32 i = 0; i < CURRENT_SCENE; ++i) {
+		seek += _scenes[i]->getCountLimit();
+	}
+	gameaudio::ISound* bgm = Application::instance()->getBGM();
+	bgm->setGain(1.0f);
+	bgm->setPlayPositionBySecs(seek);
+	bgm->play();
 }
 
 GameSequence::~GameSequence() {
-	gameaudio::getSoundManager().removeSound(_bgm);
 }
 
 
@@ -98,20 +101,35 @@ void GameSequence::_createTextures(const uint2d& viewport) {
 }
 
 void GameSequence::_update(f32 t) {
-	// BGMを再生する
-	if (!_bgm->isPlaying()) _bgm->play();
-
 	// シーンを更新する
 	core::shared_ptr<Sequence> next_scene = _currentScene->update(t);
 	if (next_scene) {
-		_currentScene = core::shared_dynamic_cast<game::Scene>(next_scene);
+		_sceneIndex++;
+		try {
+			_currentScene = core::shared_dynamic_cast<game::Scene>(next_scene);
+			if (!_currentScene) {
+				_nextSequence = next_scene;
+				_fadeout(0.0f);
+			}
+		} catch (...) {
+			_nextSequence = next_scene;
+			_fadeout(0.0f);
+		}
 	}
 
 	// 精子の数を計算する
-	double total_num = _status->getTotalNum();
-	double minus_num = total_num * t / 8.0;
-	total_num -= minus_num;
-	_status->setTotalNum((u32)total_num);
+	if (_sceneIndex != 5) {
+		double total_num = _status->getTotalNum();
+		double minus_num = total_num * t / 8.0;
+		total_num -= minus_num;
+		_status->setTotalNum((u32)total_num);
+		_status->setPlayerRank((u32)(total_num * _playerRank));
+	}
+
+	if (_status->getSpeedUpFlag()) {
+		_playerRank -= 0.02;
+	}
+	_status->update();
 }
 
 void GameSequence::onResize(const uint2d& viewport) {
@@ -130,6 +148,8 @@ void GameSequence::_draw() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	if (!_currentScene) return;
+
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
@@ -145,7 +165,7 @@ void GameSequence::_draw() {
 
 		glDepthMask(GL_FALSE);
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		_currentScene->setDrawState(game::Scene::EDS_EFFECT);
 		_currentScene->draw();
 		glDisable(GL_BLEND);
@@ -196,19 +216,7 @@ void GameSequence::_draw() {
 	glDisable(GL_BLEND);
 
 	// GUIを描画する
-	f32 w_h_ratio =  (f32)viewport[2] / (f32)viewport[3];
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0.0, 450.0 * w_h_ratio, 450.0, 0.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	_text->setText(boost::lexical_cast<core::string>(_status->getTotalNum()));
-	_text->draw();
-	glDisable(GL_BLEND);
+	_indicator->draw(uint2d(viewport[2], viewport[3]));
 
 	// フェードを描画する
 	_currentScene->setDrawState(game::Scene::EDS_FADE);
@@ -216,5 +224,5 @@ void GameSequence::_draw() {
 }
 
 core::shared_ptr<Sequence> GameSequence::_getNextSequence() {
-	return core::shared_ptr<Sequence>();
+	return _nextSequence;
 }

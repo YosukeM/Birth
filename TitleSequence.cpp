@@ -8,12 +8,16 @@
 #include "guiBackground.h"
 
 #include "GameSequence.h"
+#include "DescriptionSequence.h"
+
+#include "Application.h"
+#include <gameaudio/ISound.h>
 
 #include <GL/glfw.h>
 
-TitleSequence::TitleSequence() {
-	_rm = core::make_shared<rsc::SyncManager>();
-	_rm->setBasePath("./data/");
+TitleSequence::TitleSequence()
+{
+	_rm = Application::instance()->getResourceManager();
 
 	_bg = core::make_shared<gui::Background>(float2d(800.0f, 450.0f));
 	_bg->setColor(Color(255, 255, 255));
@@ -47,18 +51,31 @@ TitleSequence::TitleSequence() {
 
 	_buttons[0]->onClick = [this] (gui::ImageButton*) {
 		if (_getFadeState() == Sequence::EFS_NONE) {
-			_fadeout(2.0f);
+			_buttonTag = EBT_GAME;
+			_fadeout(1.5f);
+		}
+	};
+	_buttons[1]->onClick = [this] (gui::ImageButton*) {
+		if (_getFadeState() == Sequence::EFS_NONE) {
+			_buttonTag = EBT_DESCRIPTION;
+			_fadeout(1.5f);
 		}
 	};
 
 	// フェードイン
-	_fadein(2.0f);
+	_fadein(1.5f);
 }
 
 TitleSequence::~TitleSequence() {
 }
 
 void TitleSequence::_update(f32 t) {
+	if (_getFadeState() == EFS_FADEOUT) {
+		auto bgm = Application::instance()->getBGM();
+		if (bgm->isPlaying()) {
+			bgm->setGain(_getFadeLevel());
+		}
+	}
 	foreach (auto& button, _buttons) {
 		button->update(t);
 	}
@@ -96,5 +113,9 @@ void TitleSequence::_draw() {
 }
 
 core::shared_ptr<Sequence> TitleSequence::_getNextSequence() {
-	return core::make_shared<GameSequence>();
+	if (_buttonTag == EBT_GAME) {
+		return core::make_shared<GameSequence>();
+	} else {
+		return core::make_shared<DescriptionSequence>();
+	}
 }

@@ -6,7 +6,7 @@
 using namespace gui;
 
 Image::Image(core::shared_ptr<rsc::Texture> tex)
-	: _texture(tex)
+	: _texture(tex), _color(0xFFFFFFFF)
 {
 }
 

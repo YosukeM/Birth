@@ -31,6 +31,12 @@
     <Filter Include="game\scene">
       <UniqueIdentifier>{0dc0c177-9a96-40b7-8b81-8a74049c004b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\node">
+      <UniqueIdentifier>{aaf26360-dd6b-4189-897b-3366801e52ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\geom">
+      <UniqueIdentifier>{5fecf33b-77f7-4e80-afd8-7643d6b0f5ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="global.h.cpp" />
@@ -75,9 +81,6 @@
     <ClCompile Include="oglPerspectiveCamera.cpp">
       <Filter>ogl</Filter>
     </ClCompile>
-    <ClCompile Include="gamePlayer.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="Angle2d.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -111,26 +114,14 @@
     <ClCompile Include="rscTexture.cpp">
       <Filter>rsc</Filter>
     </ClCompile>
-    <ClCompile Include="gameNode.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="Quaternion.cpp">
       <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="gameSubordinate.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="rscShader.cpp">
       <Filter>rsc</Filter>
     </ClCompile>
     <ClCompile Include="rscProgram.cpp">
       <Filter>rsc</Filter>
-    </ClCompile>
-    <ClCompile Include="gameGeomTail.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="gameSpermatozoa.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>core</Filter>
@@ -140,12 +131,6 @@
     </ClCompile>
     <ClCompile Include="gameScene.cpp">
       <Filter>game\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="gameOvum.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="gameMitochondria.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="guiText.cpp">
       <Filter>gui</Filter>
@@ -162,6 +147,37 @@
     <ClCompile Include="guiImageButton.cpp">
       <Filter>gui</Filter>
     </ClCompile>
+    <ClCompile Include="guiRectangle.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gameIndicator.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="gameMitochondria.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gameOvum.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gamePlayer.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gameSpermatozoa.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gameSubordinate.cpp">
+      <Filter>game\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gameGeomTail.cpp">
+      <Filter>game\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="gameGeomParticle.cpp">
+      <Filter>game\geom</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptionSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector2d.h">
@@ -240,12 +256,6 @@
     <ClInclude Include="oglPerspectiveCamera.h">
       <Filter>ogl</Filter>
     </ClInclude>
-    <ClInclude Include="gameNode.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="gamePlayer.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="Angle2d.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -285,22 +295,13 @@
     <ClInclude Include="rscSyncManager.h">
       <Filter>rsc</Filter>
     </ClInclude>
-    <ClInclude Include="gameSubordinate.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="rscShader.h">
       <Filter>rsc</Filter>
     </ClInclude>
     <ClInclude Include="rscProgram.h">
       <Filter>rsc</Filter>
     </ClInclude>
-    <ClInclude Include="gameGeomTail.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="gameStatus.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="gameSpermatozoa.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
@@ -327,12 +328,6 @@
     <ClInclude Include="gameScene6.h">
       <Filter>game\scene</Filter>
     </ClInclude>
-    <ClInclude Include="gameOvum.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="gameMitochondria.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="guiText.h">
       <Filter>gui</Filter>
     </ClInclude>
@@ -345,6 +340,38 @@
     <ClInclude Include="guiImageButton.h">
       <Filter>gui</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="guiRectangle.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gameIndicator.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="gameSpermatozoa.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gameMitochondria.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gameOvum.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gamePlayer.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gameSubordinate.h">
+      <Filter>game\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gameGeomTail.h">
+      <Filter>game\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="gameGeomParticle.h">
+      <Filter>game\geom</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptionSequence.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileFactory.h">
@@ -353,5 +380,11 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Birth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon.ico" />
   </ItemGroup>
 </Project>

@@ -48,6 +48,8 @@ void Sequence::_drawFading(f32 fade_level) {
 		fade_level = 1.0f;
 	}
 
+	if (fade_level <= 0.0f) return;
+
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_LIGHTING);
@@ -82,14 +84,7 @@ void Sequence::_drawFading(f32 fade_level) {
 
 void Sequence::draw() {
 	_draw();
-	switch (_fadeState) {
-	case EFS_FADEIN:
-		_drawFading(1.0f - _fadeTimer / _fadeDuration);
-		break;
-	case EFS_FADEOUT:
-		_drawFading(_fadeTimer / _fadeDuration);
-		break;
-	}
+	_drawFading(_getFadeLevel());
 }
 
 void Sequence::_fadein(f32 duration, const Color& color) {
@@ -104,6 +99,19 @@ void Sequence::_fadeout(f32 duration, const Color& color) {
 	_fadeTimer = 0.0f;
 	_fadeColor = color;
 	_fadeState = EFS_FADEOUT;
+}
+
+float Sequence::_getFadeLevel() const {
+	float value = 0.0f;
+	switch (_fadeState) {
+	case EFS_FADEIN:
+		value = 1.0f - _fadeTimer / _fadeDuration;
+		break;
+	case EFS_FADEOUT:
+		value = _fadeTimer / _fadeDuration;
+		break;
+	}
+	return value;
 }
 
 Sequence::EFadeState Sequence::_getFadeState() const {

@@ -13,6 +13,7 @@ namespace rsc {
 }
 
 namespace game {
+	class Ovum;
 
 	/**
 	 * Player‚ÆSubordinates‚ÌŠî’êƒNƒ‰ƒXB
@@ -25,6 +26,7 @@ namespace game {
 		core::shared_ptr<rsc::Mesh> _mesh;
 
 		geom::Tail _tail;
+		core::shared_ptr<Ovum> _ovum;
 
 		void _drawSolid();
 		virtual void _onDraw() {};
@@ -33,5 +35,7 @@ namespace game {
 
 	public:
 		void draw(Node::EDrawState);
+
+		virtual void setOvum(core::shared_ptr<Ovum>);
 	};
 }
