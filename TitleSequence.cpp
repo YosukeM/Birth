@@ -26,8 +26,6 @@ TitleSequence::TitleSequence()
 	_title = core::make_shared<gui::Image>(_rm->getTexture("title.tga"));
 	_title->setPosition(float2d(400.0f, 225.0f));
 	_title->setAlignType(gui::PositionalElement::EAT_CENTER_CENTER);
-	_title->getTexture()->setMinFilter(rsc::Texture::EFilter::EF_LINEAR);
-	_title->getTexture()->setMagFilter(rsc::Texture::EFilter::EF_LINEAR);
 	_title->setPosition(float2d(0.0f, -50.0f));
 
 	// ƒ{ƒ^ƒ“‚ðì‚é
@@ -36,8 +34,6 @@ TitleSequence::TitleSequence()
 
 	foreach (auto& button, _buttons) {
 		button->setAlignType(gui::PositionalElement::EAT_CENTER_CENTER);
-		button->getTexture()->setMinFilter(rsc::Texture::EFilter::EF_LINEAR);
-		button->getTexture()->setMagFilter(rsc::Texture::EFilter::EF_LINEAR);
 		button->onMouseover = [this] (gui::ImageButton* btn) {
 			btn->setColor(Color(0xFF0000FF));
 		};

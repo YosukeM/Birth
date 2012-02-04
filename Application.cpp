@@ -13,7 +13,10 @@
 
 #include <GL/glfw.h>
 #include <gameaudio/gameaudio.h>
-#include <boost/lexical_cast.hpp>
+
+#include <GL/glfw.h>
+#include "inputManager.h"
+#include "inputMouse.h"
 
 namespace {
 	Application *gApp = NULL;
@@ -46,7 +49,10 @@ void Application::init() {
 	// Extensionsを確認
 	_checkExtensions();
 
-	// BGM
+	// マウスカーソルを表示させる
+	glfwEnable(GLFW_MOUSE_CURSOR);
+
+	// BGMをロード
 	_bgm = gameaudio::getSoundManager().createSound("data/bgm.ogg", false, false);
 
 	// リソースマネージャ
@@ -72,11 +78,9 @@ void Application::_checkExtensions() {
 	// OpenGLのバージョンを調べる
 	// バージョンの書式に関する規格がないので、パースの仕方は適当である。
 	try {
-		core::string version(reinterpret_cast<const char*>(glGetString(GL_VERSION)));
-		if (version.size() > 3) {
-			double v = boost::lexical_cast<double>(version.substr(0, 3));
-			if (v < 2.0) errors.push_back(core::string("Your OpenGL version is ") + version + ", require 2.0 or greater");
-		}
+		int major, minor, rev;
+		glfwGetGLVersion(&major, &minor, &rev);
+		if (major < 2) errors.push_back(core::string("OpenGL version 2.0 or higher is required"));
 	} catch (...) {
 	}
 
