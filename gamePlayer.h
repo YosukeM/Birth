@@ -6,6 +6,8 @@
 #include "rscProgram.h"
 #include "Angle2d.h"
 
+#include "gameGeomParticle.h"
+
 #include "gameGeomTail.h"
 
 namespace rsc {

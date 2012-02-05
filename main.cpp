@@ -104,7 +104,9 @@ int main(int argc, const char** argv)
 	glfwSetWindowSizeCallback(onResize);
 
 #ifndef _WIN32
+#ifdef _DEBUG
 	boost::filesystem::current_path("../../../../Birth");
+#endif
 #endif
 
 	try {
