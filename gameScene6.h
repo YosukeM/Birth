@@ -32,7 +32,7 @@ namespace game {
 		Scene6(core::shared_ptr<rsc::IManager> rm, core::shared_ptr<game::Status> status)
 			: Scene(rm, status, 38.0f),
 			_status(status), _pTime(0.0f), _tTime(0.0f),
-			_hasAttached(false), _hasBegan(false)
+			  _hasAttached(false), _hasBegan(false)
 		{
 			_player->setPosition(float3d(0.0f, 0.0f, 400.0f));
 			_subordinatesNum = core::random::getInt(SUBORDINATES_NUM, SUBORDINATES_NUM * 3);
@@ -95,11 +95,11 @@ namespace game {
 					_playerRank = _realRank;
 					_hasAttached = true;
 				}
-				if (core::random::getFloat() > 0.95) {
+				if (core::random::getFloat() < std::pow(0.03f, t * 100.0f)) {
 					_playerRank++;
 				}
 				if (input::Manager::instance()->getMouse()->isPressed(input::Mouse::EB_LEFT)) {
-					if (core::random::getFloat() > 0.8f) {
+					if (core::random::getFloat() > 0.4f) {
 						_playerRank--;
 					}
 				}

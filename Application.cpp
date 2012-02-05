@@ -104,6 +104,7 @@ void Application::update(f32 delta_time) {
 	// Sequence‚ðupdate
 	core::shared_ptr<Sequence> next_seq;
 	for (u32 counter = u32(internal_frames_num); counter > 0; --counter) {
+		input::Manager::instance()->update(small_dt);
 		next_seq = _seq->update(small_dt);
 		if (next_seq) {
 			_seq = next_seq;

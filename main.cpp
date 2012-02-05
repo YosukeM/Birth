@@ -118,7 +118,6 @@ int main(int argc, const char** argv)
 		newTime = prevTime = glfwGetTime();
 		while (true) {
 			newTime = glfwGetTime();
-			input::Manager::instance()->update(f32(newTime - prevTime));
 			Application::instance()->update(f32(newTime - prevTime));
 			prevTime = newTime;
 			glfwSwapBuffers();
