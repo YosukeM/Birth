@@ -1,4 +1,8 @@
 Thumbs.db
+.DS_Store
+working/*
+data/*.tga
+data/*.ogg
 *.obj
 *.exe
 *.pdb
