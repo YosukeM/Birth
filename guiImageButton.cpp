@@ -11,6 +11,10 @@ ImageButton::ImageButton(core::shared_ptr<rsc::Texture> tex)
 }
 
 void ImageButton::update(f32) {
+	auto mouse = input::Manager::instance()->getMouse();
+	if (!_isMouseout && mouse->isPressed(input::Mouse::EB_LEFT)) {
+		if (onClick) onClick(this);
+	}
 }
 
 void ImageButton::draw() {
@@ -30,10 +34,6 @@ void ImageButton::draw() {
 			if (onMouseout) onMouseout(this);
 		}
 		_isMouseout = true;
-	}
-
-	if (!_isMouseout && mouse->isPressed(input::Mouse::EB_LEFT)) {
-		if (onClick) onClick(this);
 	}
 
 	Image::draw();

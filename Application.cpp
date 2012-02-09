@@ -72,11 +72,20 @@ void Application::_checkExtensions() {
 	core::vector<core::string> errors;
 
 	// Extensionの有無を調べる
-	if (!GLEW_EXT_framebuffer_object) errors.push_back("Framebuffer object is not supported");
-	if (!GLEW_EXT_texture_rectangle) errors.push_back("Texture rectangle is not supported");
+	if (!GLEW_EXT_vertex_shader && !GLEW_ARB_vertex_shader) {
+		errors.push_back("Vertex shader is not supported");
+	}
+	if (!GLEW_ATI_fragment_shader && !GLEW_ARB_fragment_shader) {
+		errors.push_back("Fragment shader is not supported");
+	}
+	if (!GLEW_EXT_framebuffer_object && !GLEW_ARB_framebuffer_object) {
+		errors.push_back("Framebuffer object is not supported");
+	}
+	if (!GLEW_EXT_texture_rectangle && !GLEW_ARB_texture_rectangle && !GLEW_NV_texture_rectangle) {
+		errors.push_back("Texture rectangle is not supported");
+	}
 
 	// OpenGLのバージョンを調べる
-	// バージョンの書式に関する規格がないので、パースの仕方は適当である。
 	try {
 		int major, minor, rev;
 		glfwGetGLVersion(&major, &minor, &rev);
@@ -98,7 +107,7 @@ void Application::update(f32 delta_time) {
 	if (delta_time > 1.0f) delta_time = 1.0f;
 
 	// 最小フレームレートを60とする。
-	f32 internal_frames_num = std::ceil(delta_time / (1.0f / 60.0f));
+	f32 internal_frames_num = std::ceil(delta_time * 60.0f);
 	f32 small_dt = delta_time / internal_frames_num;
 
 	// Sequenceをupdate
