@@ -34,7 +34,7 @@ namespace game {
 				mito->setPosition(float3d(pos.x, pos.y, z));
 				_nodeList.push_back(mito);
 				z += -50.0f;
-				pos.y += core::random::getFloat(-4.0f, 4.0f);
+				pos.x += core::random::getFloat(-4.0f, 4.0f);
 			}
 
 		}

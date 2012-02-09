@@ -39,6 +39,9 @@ namespace game {
 				z += -50.0f;
 				pos += Angle2d(core::random::getFloat(0.0f, Angle2d::PI * 2.0f)).getVector() * 5.0f;
 			}
+
+			// ƒJƒƒ‰‚ÌˆÊ’u‚ð‰Šú‰»
+			_camera.setPosition(_player->getPosition() + float3d(0.0f, 10.0f, 40.0f));
 		}
 	protected:
 		void _onUpdate(f32 t) {

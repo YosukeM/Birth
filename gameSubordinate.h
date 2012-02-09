@@ -32,5 +32,7 @@ namespace game {
 		void update(f32);
 
 		void setOvum(core::shared_ptr<Ovum>);
+
+		bool hasOvumAttached() const { return _hasOvumAttached; }
 	};
 }

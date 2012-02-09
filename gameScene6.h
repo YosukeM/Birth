@@ -82,7 +82,7 @@ namespace game {
 				}
 				int prev_player_rank = _playerRank;
 				if (_count < 15.0f) {
-					_playerRank -= std::floor((_playerRank - _realRank) / 30.0 * _pTime);
+					_playerRank -= std::floor((_playerRank - _realRank) / 20.0 * _pTime);
 				} else {
 					_playerRank -= std::floor((_playerRank - _realRank) / 5.0 * _pTime);
 				}
@@ -104,7 +104,11 @@ namespace game {
 					}
 				}
 				if (_playerRank <= 0) _playerRank = 1;
-				if (_playerRank > SUBORDINATES_NUM) _playerRank = SUBORDINATES_NUM;
+				u32 attached_num = 1;
+				foreach (const auto& sub, _subordinates) {
+					if (sub->hasOvumAttached()) attached_num++;
+				}
+				if (_playerRank > attached_num) _playerRank = attached_num;
 			}
 
 			// ¸q‚Ì‘”‚ğ™X‚ÉŒ¸‚ç‚·
